@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Web site created using bootstrap" />
+    <!-- SASS -->
+    <link rel="stylesheet" href="/scss/index.css">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
+    crossorigin="anonymous">
+    <title>Drum Machine</title>
+    </style>
+  </head>
+
+  <body>
+
+    <main class="container-fluid">
+
+      <div class="row">
+
+        <div class="col-5" id="drum-machine">
+          <div id="pads-container">
+              <div id="kick" class="drum-pad" onclick="playAudio(this)">
+                Q
+                <audio src="./audio/kick.wav" class="clip" id="Q" hidden
+                preload="metadata"></audio>
+              </div>
+
+              <div id="snare" class="drum-pad" onclick="playAudio(this)">
+                W
+                <audio src="./audio/snare.wav" class="clip" id="W" hidden></audio>
+              </div>
+              
+              <div id="hat"  class="drum-pad" onclick="playAudio(this)">
+                E
+                <audio src="./audio/hat.wav" class="clip" id="E" hidden></audio>
+              </div>
+
+              <div id="bass"  class="drum-pad" onclick="playAudio(this)">
+                A
+                <audio src="./audio/bass_line.wav" class="clip" id="A" hidden></audio>
+              </div>
+
+              <div id="chord"  class="drum-pad" onclick="playAudio(this)">
+                S
+                <audio src="./audio/chord.wav" class="clip" id="S" hidden></audio>
+              </div>
+
+              <div id="pad"  class="drum-pad" onclick="playAudio(this)">
+                D
+                <audio src="./audio/pad.wav" class="clip" id="D" hidden></audio>
+              </div>
+
+              <div id="secuencer"  class="drum-pad" onclick="playAudio(this)">
+                Z
+                <audio src="./audio/sequencer.wav" class="clip" id="Z" hidden></audio>
+              </div>
+
+              <div id="piano"  class="drum-pad" onclick="playAudio(this)">
+                X
+                <audio src="./audio/piano.wav" class="clip" id="X" hidden></audio>
+              </div>
+
+              <div id="drum"  class="drum-pad" onclick="playAudio(this)">
+                C
+                <audio src="./audio/drum.wav" class="clip" id="C" hidden></audio>
+              </div>
+          </div>
+          <div id="display-container">
+            <div id="display">
+              kick
+            </div>
+          </div>
+          <div id="logo">
+            <p id="logo-text">Music Box</p>
+          </div> 
+          <div id="switch" onclick="turnPower()">On/Off</div> 
+          <div id="led-container">
+            <div id="led">
+              led
+            </div>
+          </div> 
+        </div>
+
+
+      </div>
+
+    </main>
+
+    <footer>
+      <p>Check out my FCC 
+        <a href="https://www.freecodecamp.org/fcc4239147b-210c-4af2-842b-d3028d09a937" 
+        target="_blank">
+          Portfolio</a>
+      </p>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/9021692663.js" crossorigin="anonymous"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" 
+    integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" 
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+    
+    <script>
+
+    //Use objects instead of primitive booleans to send them by reference
+    let power = true;
+    console.log(power);
+    let repeatBass = {value: true};
+    let repeatChord = {value: true};
+    let repeatPad = {value: true};
+    let repeatSecuencer = {value: true};
+    let repeatPiano = {value: true};
+    let repeatDrum = {value: true};
+    const display = document.getElementById("display");
+    const led = document.getElementById("led");
+    let regex = new RegExp("\\w+.wav$", "gi");
+    console.log("regex: " + regex);
+
+    led.setAttribute("style", "background-color: #90ee90");
+    const turnPower = () => {
+      power = !power;
+      turnLed(power);
+    };
+
+    const turnLed = (power) => {
+      console.log("power: " + power);
+      if (power) {
+        led.setAttribute("style", "background-color: #90ee90; color: #90ee90");
+        display.innerHTML = "drum";
+      } else {
+        led.setAttribute("style", "background-color: #FF8A8A; color: #FF8A8A");
+        display.innerHTML = "drum";
+      }
+    };
+
+    const playAudio  = (element) => {
+
+      if (power == false) {
+        return;
+      }
+      const children = element.children; //WEB APIS - Element
+      let audio = new Audio(children[0].src);
+      const route = children[0].src;
+      const displayOutput = route.match(regex).toString().replace(".wav", "");
+      display.innerHTML = displayOutput;
+
+      const canPlay = (repeatBass, id) => {
+        const duration = Math.trunc((document.getElementById(id).duration) * 1000);
+
+        setTimeout(() => {
+          repeatBass.value = true
+          console.log("You can use " + id + " again");
+        }, duration);
+      };
+
+      switch (children[0].id) {
+        case "A":
+          if (repeatBass.value == true) {
+            repeatBass.value = false;
+            canPlay(repeatBass, children[0].id);
+            audio.play();
+          }
+        break;
+
+        case "S":
+          if (repeatChord.value == true) {
+            repeatChord.value = false;
+            canPlay(repeatChord, children[0].id);
+            audio.play();
+          }
+        break;
+
+        case "D": 
+          if (repeatPad.value == true) {
+            repeatPad.value = false;
+            canPlay(repeatPad, children[0].id);
+            audio.play();
+          }
+        break;
+
+        case "Z": 
+          if (repeatSecuencer.value == true) {
+            repeatSecuencer.value = false;
+            canPlay(repeatSecuencer, children[0].id);
+            audio.play();
+          }
+        break;
+
+        case "X": 
+          if (repeatPiano.value == true) {
+            repeatPiano.value = false;
+            canPlay(repeatPiano, children[0].id);
+            audio.play();
+          }
+        break;
+
+        case "C": 
+          if (repeatDrum.value == true) {
+            repeatDrum.value = false;
+            canPlay(repeatDrum, children[0].id);
+            audio.play();
+          }
+        break;
+
+        default:
+          audio.play();
+        break;
+      };
+
+    };
+
+    
+    $(function() { //// Shorthand for $( document ).ready()
+
+       $("body").keydown((event) => {
+        const id = event.key.toUpperCase();
+        const element = document.getElementById(id);
+        const parent = element.parentElement; //WEB APIS - Node
+        playAudio(parent);
+       });
+
+
+
+    });
+    </script>
+  </body>
+</html>
+

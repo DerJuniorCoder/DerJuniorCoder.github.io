@@ -1,0 +1,1 @@
+This version doesn't passes two tests of the FCC Suite Bundle because is not using the audio element, yet is much more responsive and much more faster.

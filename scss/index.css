@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+main {
+  height: 100vh;
+  overflow: hidden;
+  background-image: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.row {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#drum-machine {
+  padding: 4px;
+  display: grid;
+  height: 50vh;
+  grid-template-areas: "pads pads pads pads disp-c disp-c" "pads pads pads pads logo logo" "pads pads pads pads switch led-c";
+  gap: 6px;
+  overflow: hidden;
+  border: 1px solid;
+  border-radius: 12px;
+  background: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
+}
+
+#pads-container {
+  grid-area: pads;
+  display: grid;
+  padding: 6px;
+  grid-template-areas: "kick snare hat" "bass chord pa" "secuencer piano drum";
+  gap: 12px;
+  border: 1px solid;
+}
+
+.drum-pad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  border: 1px solid;
+  background: linear-gradient(to right, rgba(67, 67, 67, 0.6431372549) 0%, black 100%);
+  color: silver;
+}
+
+.drum-pad:active {
+  transform: translateY(6px);
+}
+
+#kick {
+  grid-area: kick;
+}
+
+#snare {
+  grid-area: snare;
+}
+
+#hat {
+  grid-area: hat;
+}
+
+#bass {
+  grid-area: bass;
+}
+
+#chord {
+  grid-area: chord;
+}
+
+#pad {
+  grid-area: pa;
+}
+
+#secuencer {
+  grid-area: secuencer;
+}
+
+#piano {
+  grid-area: piano;
+}
+
+#drum {
+  grid-area: drum;
+}
+
+#display-container, #logo, #switch, #led-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0;
+}
+
+#display-container {
+  grid-area: disp-c;
+  border: 1px solid;
+  border-radius: 24px;
+  background-color: #bccd95;
+}
+
+#display {
+  overflow: visible;
+  background-color: #bccd95;
+  font-family: fantasy;
+}
+
+#logo {
+  grid-area: logo;
+}
+
+#logo-text {
+  font-family: "bradley hand", cursive;
+  font-size: x-large;
+  background-image: linear-gradient(to right, rgba(67, 67, 67, 0.6431372549) 0%, black 100%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+#switch {
+  grid-area: switch;
+  border: 1px solid;
+  color: gainsboro;
+  background: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+#switch:active {
+  transform: translateY(6px);
+}
+
+#led-container {
+  grid-area: led-c;
+}
+
+#led {
+  height: 50px;
+  height: 50px;
+  border: 1px solid black;
+  color: #90ee90;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 12px;
+  background-color: #bccd95;
+  font-family: fantasy;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+}
+
+footer a:hover {
+  background-color: #d64c7f;
+  color: white;
+}
+
+@media (max-width: 700px) {
+  .row {
+    overflow: hidden;
+  }
+  #drum-machine {
+    padding: 8px;
+    height: 100vh;
+    width: 100%;
+    grid-template-areas: "disp-c disp-c disp-c" "pads pads pads" "pads pads pads" "pads pads pads" "logo switch led-c";
+  }
+}/*# sourceMappingURL=index.css.map */
